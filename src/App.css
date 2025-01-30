@@ -1,0 +1,30 @@
+/* Reset default margin and padding for body and html */
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif; /* Default font */
+  box-sizing: border-box;
+}
+
+/* Container for the entire app */
+.app {
+  display: flex;
+  flex-direction: column; /* Stack header on top and content below */
+  min-height: 100vh; /* Ensure the app takes up the full height */
+}
+
+/* Page content styles */
+main {
+  flex-grow: 1; /* Allow content to expand and take up remaining space */
+  padding: 20px;
+}
+
+/* About, Recipe, Contact pages styles */
+.about, .recipes, .contact {
+  padding: 50px;
+  text-align: center;
+}
+
+.about h1, .recipes h1, .contact h1 {
+  font-size: 2.5rem;
+}

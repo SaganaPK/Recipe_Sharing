@@ -1,0 +1,198 @@
+.contact-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  background-color: #faf3e0;
+}
+
+.contact-wrapper {
+  background: url("../assets/contact.jpeg") no-repeat center center/cover;
+  padding: 50px;
+  border-radius: 15px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  max-width: 600px;
+  width: 100%;
+  text-align: center;
+  color: #fff;
+  font-weight: bolder;
+}
+
+.contact-heading {
+  font-size: 28px;
+  color: #fff;
+  margin-bottom: 15px;
+}
+
+.contact-warm-message {
+  font-size: 16px;
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+.contact-form .contactform-group {
+  margin-bottom: 15px;
+  text-align: left;
+  color: #fff;
+}
+
+.contact-form label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #fff;
+
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+  color: #fff;
+}
+
+.submit-button {
+  background-color: #ff6f61;
+  color: white;
+  border: none;
+  padding: 12px 18px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.submit-button:hover {
+  background-color: #e65c50;
+}
+
+.rating-stars {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  font-size: 24px;
+  margin-top: 10px;
+}
+
+.star {
+  cursor: pointer;
+  transition: color 0.3s ease;
+  color: #fff;
+}
+
+.star.filled {
+  color: #ffcc00;
+}
+
+/* Responsive Styles */
+
+/* For tablets and smaller desktops */
+@media (max-width: 1024px) {
+  .contact-wrapper {
+    max-width: 500px;
+    padding: 25px;
+  }
+
+  .contact-heading {
+    font-size: 24px;
+  }
+
+  .contact-warm-message {
+    font-size: 14px;
+  }
+
+  .contact-form input,
+  .contact-form textarea {
+    font-size: 14px;
+  }
+
+  .submit-button {
+    font-size: 14px;
+    padding: 10px 16px;
+  }
+
+  .rating-stars {
+    font-size: 22px;
+  }
+}
+
+/* For mobile screens (phones) */
+@media (max-width: 768px) {
+  .contact-container {
+    padding: 20px;
+  }
+
+  .contact-wrapper {
+    max-width: 90%;
+    padding: inherit;
+  }
+
+  .contact-heading {
+    font-size: 22px;
+  }
+
+  .contact-warm-message {
+    font-size: 13px;
+  }
+
+  .contact-form .contactform-group {
+    margin-bottom: 10px;
+  }
+
+  .contact-form label {
+    font-size: 14px;
+  }
+
+  .contact-form input,
+  .contact-form textarea {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .submit-button {
+    font-size: 14px;
+    padding: 10px 14px;
+  }
+
+  .rating-stars {
+    font-size: 20px;
+  }
+}
+
+/* For small phones (extra small screens) */
+@media (max-width: 480px) {
+  .contact-wrapper {
+    padding: inherit;
+  }
+
+  .contact-heading {
+    font-size: 20px;
+  }
+
+  .contact-warm-message {
+    font-size: 12px;
+  }
+
+  .contact-form label {
+    font-size: 12px;
+  }
+
+  .contact-form input,
+  .contact-form textarea {
+    font-size: 12px;
+    padding: 6px;
+  }
+
+  .submit-button {
+    font-size: 12px;
+    padding: 8px 12px;
+  }
+
+  .rating-stars {
+    font-size: 18px;
+  }
+}

@@ -1,0 +1,74 @@
+/* General container styles */
+.recipe-container {
+  padding: 20px;
+  background-color: #faf3e0;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Section header */
+.recipe-type-title {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  border-bottom: 3px solid #007bff;
+  display: inline-block;
+  padding-bottom: 5px;
+}
+
+/* Cards container */
+.recipe-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+/* Recipe card styles */
+.recipe-card {
+  background: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+  text-align: center;
+  max-height: 300px; /* Adjust to your desired size */
+  height: auto; 
+  width:auto;
+  max-width: 250px; /* Adjust to your desired size */
+
+}
+
+.recipe-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Image styling */
+.recipe-image {
+  width: 100%;
+  height: 200px;
+  object-fit: contain;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+/* Recipe name styling */
+.recipe-name {
+  padding: 10px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #333;
+  text-transform: capitalize;
+  background-color: #fff;
+}
+
+/* Link styling */
+.recipe-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.recipe-link:hover .recipe-name {
+  color: #007bff;
+}
