@@ -33,6 +33,7 @@ const AddRecipeForm = ({ onClose }) => {
     };
 
     try {
+      console.log("Recipe Data before adding to Firestore:", recipeData); // Debugging
       await addDoc(collection(db, "RecipeList"), recipeData);
       alert("Recipe added successfully!");
       console.log("Recipe added successfully!");

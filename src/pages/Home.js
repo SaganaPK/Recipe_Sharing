@@ -3,6 +3,7 @@ import TheFamilyCookBook from "../assets/TheFamilyCookBook.png";
 import NewRecipesImage from "../assets/NewRecipesImage.jpeg"; // Placeholder for the second image
 import { collection, getDocs } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
+import levenshtein from "fast-levenshtein"; 
 import db from "../firebase";
 import "../css/Home.css";
 
@@ -11,6 +12,8 @@ function Home() {
   const [errorMessage, setErrorMessage] = useState("");
   const [latestRecipes, setLatestRecipes] = useState([]); // For the latest 3 recipes
   const navigate = useNavigate();
+  const [bestMatch, setBestMatch] = useState(null); // ✅ Add state for best match
+
 
   useEffect(() => {
     const fetchRecipes = async () => {
@@ -28,6 +31,7 @@ function Home() {
           .slice(0, 3);
 
         setLatestRecipes(sortedRecipes); // Latest 3 recipes
+       // sortedRecipes.forEach(recipe => console.log(recipe.name, recipe.createdAt));
       } catch (error) {
         console.error("Error fetching recipes:", error);
       }
@@ -43,21 +47,49 @@ function Home() {
       setErrorMessage("Please enter a recipe name to search.");
       return;
     }
-
+  
     try {
       const querySnapshot = await getDocs(collection(db, "RecipeList"));
-      const matchedRecipe = querySnapshot.docs
-        .map((doc) => ({ id: doc.id, ...doc.data() }))
-        .find(
-          (doc) =>
-            doc.name &&
-            doc.name.toLowerCase() === searchQuery.trim().toLowerCase()
-        );
-
+      const recipes = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+  
+      const searchLower = searchQuery.trim().toLowerCase();
+  
+      // **Exact match check**
+      const matchedRecipe = recipes.find(
+        (recipe) => recipe.name.toLowerCase() === searchLower
+      );
+  
       if (matchedRecipe) {
         setErrorMessage("");
         navigate(`/recipes/${matchedRecipe.type}/${matchedRecipe.id}`);
+        return;
+      }
+  
+      // **Fuzzy matching for suggestions**
+      let bestMatch = null;
+      let bestDistance = Infinity;
+  
+      recipes.forEach((recipe) => {
+        const recipeName = recipe.name.toLowerCase();
+        const distance = levenshtein.get(searchLower, recipeName); // Compare similarity
+  
+        if (distance < bestDistance && distance <= 3) { // Allow minor differences
+          bestMatch = recipe;
+          bestDistance = distance;
+        }
+       // console.log("Best Match:", bestMatch);
+      });
+  
+      if (bestMatch) {
+        setBestMatch(bestMatch); // ✅ Store the best match in state
+        setErrorMessage(
+          `Recipe not found. Did you mean "${bestMatch.name}"? Click here to view.`
+        );
       } else {
+        setBestMatch(null); // ✅ Reset bestMatch if no match found
         setErrorMessage("Recipe not found. Please try a different name.");
       }
     } catch (error) {
@@ -98,7 +130,30 @@ function Home() {
               Search
             </button>
           </form>
-          {errorMessage && <p className="error-message">{errorMessage}</p>}
+          {errorMessage && (
+  <p className="error-message">
+    {errorMessage.includes("Did you mean") && bestMatch ? (
+      <>
+        Did you mean
+        <span
+          className="best-match"
+          onClick={() => {
+            if (bestMatch && bestMatch.type && bestMatch.id) {
+              //console.log("Navigating to:", `/recipes/${bestMatch.type}/${bestMatch.id}`);
+              navigate(`/recipes/${bestMatch.type}/${bestMatch.id}`);
+            } else {
+              console.warn("Best match is not ready yet!");
+            }
+          }}        >
+          {" "}{bestMatch.name}?
+        </span>
+      </>
+    ) : (
+      errorMessage
+    )}
+  </p>
+)}
+
         </div>
       </div>
 

@@ -89,6 +89,12 @@
     background-color: #ff4500; /* Darker Tomato Red */
   }
   
+  .best-match {
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+  }
+
   /* Recipes Grid */
   .recipes-grid {
     display: grid;
