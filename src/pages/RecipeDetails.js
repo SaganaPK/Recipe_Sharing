@@ -10,18 +10,17 @@ const RecipeDetails = () => {
   const [userRating, setUserRating] = useState(0);
   const [userComment, setUserComment] = useState("");
   const [ratingError, setRatingError] = useState("");
-  const [hovered, setHovered] = useState(null);
   const [averageRating, setAverageRating] = useState(0);
 
-  const handleMouseEnter = (index) => setHovered(index);
-  const handleMouseLeave = () => setHovered(null);
+  const handleMouseEnter = (index) => setUserRating(index + 1);
+const handleMouseLeave = () => setUserRating(0);
+
 
   const handleClick = (index) => setUserRating(index + 1);
 
   useEffect(() => {
     const docRef = doc(db, "RecipeList", id);
-  
-    // Subscribe to Firestore document changes
+
     const unsubscribe = onSnapshot(docRef, (docSnap) => {
       if (docSnap.exists()) {
         setRecipe(docSnap.data());
@@ -32,7 +31,7 @@ const RecipeDetails = () => {
     }, (error) => {
       console.error("Error fetching recipe details:", error);
     });
-  
+
     return () => unsubscribe();
   }, [id]);
 
@@ -87,20 +86,20 @@ const RecipeDetails = () => {
     <div className="recipe-details">
       <h2>{recipe.name}</h2>
 
-      {/* Star rating display based on average rating */}
-      <div className="star-rating">
-        {[...Array(5)].map((_, index) => (
-          <span
-            key={index}
-            className={`star ${index < (userRating || hovered) ? "filled" : ""}`}
-            onMouseEnter={() => handleMouseEnter(index)}
-            onMouseLeave={handleMouseLeave}
-            onClick={() => handleClick(index)}
-          >
-            ★
-          </span>
-        ))}
-      </div>
+      {/* Display average rating using stars */}
+<div className="average-rating">
+  <div className="star-rating">
+    {[...Array(5)].map((_, index) => (
+      <span
+        key={index}
+        className={`star ${index < Math.round(averageRating) ? "filled" : ""}`}
+      >
+        ★
+      </span>
+    ))}
+  </div>
+</div>
+
 
       <img src={getImagePath(recipe.name) || "../assets/placeholder.jpg"} alt={recipe.name} className="recipe-image" />
       <p><strong>Type:</strong> {recipe.type}</p>
